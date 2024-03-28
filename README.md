@@ -1,3 +1,3 @@
 Needed pip packages:
-  mysql-connector OR mysql-connector-python
-  flask
+1. mysql-connector OR mysql-connector-python
+2. flask
