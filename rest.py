@@ -1,4 +1,5 @@
 from flask import Flask, request
+from hidden_constants import serverIP
 
 app = Flask(__name__)
 
@@ -12,4 +13,4 @@ def send_data():
     return f"Your data is {data}"
 
 if __name__ == '__main__':
-    app.run(host="145.239.134.25", debug=True)
+    app.run(host=serverIP, debug=True)

@@ -1,10 +1,11 @@
 import mysql.connector
+from hidden_constants import databaseConnectionInformation
 
-mydb = mysql.connector.connect(
-    host = "localhost",
-    user = "sumeyra",
-    password = "Beyribey216"
-) 
+mydb = mysql.connector.connect(**databaseConnectionInformation)
+if mydb.is_connected():
+    print("Connection successfull")
+else:
+    print("Connection failure!!")
 
 cursor = mydb.cursor()
 
