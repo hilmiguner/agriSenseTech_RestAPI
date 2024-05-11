@@ -9,9 +9,15 @@ else:
 
 cursor = mydb.cursor()
 
-cursor.execute("CREATE DATABASE agrisensetech")
-
-databases = cursor.execute("SHOW DATABASES")
-
-for database in databases:
-    print(database)
+def insertUserMessage(title, message, name, email, datetime, fb_local_id):
+    try:
+        query = f"""
+            INSERT INTO user_messages(title, message, name, email, datetime, fb_local_id) 
+            VALUES ("{title}", "{message}", "{name}", "{email}", "{datetime}", "{fb_local_id}");
+        """
+        cursor.execute(query)
+        mydb.commit()
+        return { "status": 200 }
+    except Exception as err:
+        return { "status": 400, "error": str(err) }
+    
