@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify 
 from hidden_constants import serverIP
 from database import insertUserMessage, getWeeds
+import base64
 
 app = Flask(__name__)
 
@@ -29,6 +30,12 @@ def get_weeds():
 
     try:
         respond = getWeeds(data["fb_local_id"],)
+        for id in respond["data"]:
+            filename = respond["data"][id]["image_path"]
+            with open(f"img_weeds/{data['fb_local_id']}/{filename}", "rb") as file:
+                imageData = file.read()
+                imageBase64 = base64.b64encode(imageData).decode("utf-8")
+            respond["data"][id]["image"] = imageBase64
         return jsonify(respond)
     except Exception as err:
         return jsonify({ 'status': 400, 'error': str(err) })
